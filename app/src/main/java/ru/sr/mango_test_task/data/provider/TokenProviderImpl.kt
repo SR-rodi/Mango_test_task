@@ -1,15 +1,21 @@
 package ru.sr.mango_test_task.data.provider
 
 import android.content.Context
+import ru.sr.mango_test_task.domain.provider.AccessTokenProvider
+import ru.sr.mango_test_task.domain.provider.RefreshTokenProvider
 import ru.sr.mango_test_task.domain.provider.TokenProvider
 
-class TokenProviderImpl(context: Context):TokenProvider {
+class TokenProviderImpl(
+    context: Context,
+    sharedName: String,
+    private val key: String,
+) : RefreshTokenProvider,AccessTokenProvider {
 
     private val preferenceToken =
-        context.getSharedPreferences(TOKEN_SHARED_NAME, Context.MODE_PRIVATE)
+        context.getSharedPreferences(sharedName, Context.MODE_PRIVATE)
 
     override fun putToken(token: String) {
-        preferenceToken.edit().putString(TOKEN, token).apply()
+        preferenceToken.edit().putString(key, token).apply()
     }
 
     override fun clearToken() {
@@ -17,15 +23,10 @@ class TokenProviderImpl(context: Context):TokenProvider {
     }
 
     override fun getToken(): String? =
-        preferenceToken.getString(TOKEN, null)
+        preferenceToken.getString(key, null)
 
 
     override fun tokenContain(): Boolean {
         return getToken() != null
-    }
-
-    companion object {
-        private const val TOKEN_SHARED_NAME = "Pref_Token"
-        private const val TOKEN = "token"
     }
 }

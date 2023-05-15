@@ -2,7 +2,7 @@ package ru.sr.mango_test_task.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-class ResponseRegistration(
+class ResponseRegistrationDto(
     @SerializedName("access_token")
     val accessToken: String,
     @SerializedName("refresh_token")

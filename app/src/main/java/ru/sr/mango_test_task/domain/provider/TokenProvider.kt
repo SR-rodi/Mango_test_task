@@ -1,9 +1,13 @@
 package ru.sr.mango_test_task.domain.provider
 
-interface TokenProvider {
+ interface TokenProvider {
     fun putToken(token: String)
     fun clearToken()
     fun getToken(): String?
     fun tokenContain(): Boolean
 }
+
+interface AccessTokenProvider:TokenProvider
+
+interface RefreshTokenProvider:TokenProvider
 
