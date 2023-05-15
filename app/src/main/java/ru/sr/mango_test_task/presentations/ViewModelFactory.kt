@@ -1,8 +1,9 @@
-package ru.sr.mango_test_task.core.presentation.viewmodelfactory
+package ru.sr.mango_test_task.presentations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.sr.mango_test_task.feature.auth.domen.usecase.CheckCodeUseCase
+import ru.sr.mango_test_task.feature.auth.domen.usecase.CountryUseCase
 import ru.sr.mango_test_task.feature.auth.domen.usecase.RegistrationUseCase
 import ru.sr.mango_test_task.feature.auth.domen.usecase.SendPhoneUseCase
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.AuthorizationViewModel
@@ -14,12 +15,13 @@ class ViewModelFactory @Inject constructor(
     private val sendPhoneUseCase: SendPhoneUseCase,
     private val checkCodeUseCase: CheckCodeUseCase,
     private val registrationUseCase: RegistrationUseCase,
+    private val countryUseCase: CountryUseCase,
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T = when (modelClass) {
         AuthorizationViewModel::class.java->
-            AuthorizationViewModel(sendPhoneUseCase) as T
+            AuthorizationViewModel(sendPhoneUseCase,countryUseCase) as T
         ConfirmationCodeViewModel::class.java->
             ConfirmationCodeViewModel(checkCodeUseCase) as T
         RegistrationViewModel::class.java->

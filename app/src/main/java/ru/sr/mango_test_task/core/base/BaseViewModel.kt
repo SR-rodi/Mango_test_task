@@ -61,16 +61,3 @@ abstract class BaseViewModel <ViewState>(): ViewModel() {
     }
 }
 
-class ViewState<ViewState>(initState: ViewState) {
-    private val _viewStates = MutableStateFlow(initState)
-    private var viewState: ViewState
-        get() = _viewStates.value
-        set(value) {
-            _viewStates.value = value
-        }
-
-    fun viewStates() = _viewStates.asStateFlow()
-
-
-}
-
