@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authorizationFragment"
-        android:name="ru.sr.mango_test_task.presentations.auth.authorization.AuthorizationFragment"
+        android:name="ru.sr.mango_test_task.feature.auth.presentation.authorization.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" >
         <action
@@ -21,11 +21,19 @@
     </fragment>
     <fragment
         android:id="@+id/confirmationCodeFragment"
-        android:name="ru.sr.mango_test_task.presentations.auth.confirmation.ConfirmationCodeFragment"
+        android:name="ru.sr.mango_test_task.feature.auth.presentation.confirmation.ConfirmationCodeFragment"
         android:label="fragment_confirmation_code"
         tools:layout="@layout/fragment_confirmation_code" >
         <argument
             android:name="phone"
             app:argType="string" />
+        <action
+            android:id="@+id/action_confirmationCodeFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="ru.sr.mango_test_task.feature.auth.presentation.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
 </navigation>
