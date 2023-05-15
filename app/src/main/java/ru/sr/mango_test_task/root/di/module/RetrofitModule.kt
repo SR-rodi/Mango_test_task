@@ -1,6 +1,8 @@
 package ru.sr.mango_test_task.root.di.module
 
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -12,9 +14,20 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun providerRetrofit(): Retrofit = Retrofit.Builder()
+    fun providerInterceptorLogger(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providerRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
         .build()
 
     @Provides
@@ -22,6 +35,6 @@ class RetrofitModule {
     fun provideApi(retrofit: Retrofit): MangoApi = retrofit.create()
 
     companion object {
-        private const val BASE_URL = "https://plannerok.ru/"
+        private const val BASE_URL = "https://plannerok.ru/api/v1/"
     }
 }

@@ -1,15 +1,12 @@
 package ru.sr.mango_test_task.presentations.auth.authorization
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import ru.sr.mango_test_task.R
+import androidx.navigation.fragment.findNavController
 import ru.sr.mango_test_task.databinding.FragmentAuthorizationBinding
 import ru.sr.mango_test_task.root.core.base.BaseFragment
+import ru.sr.mango_test_task.root.core.base.LoadingState
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
@@ -21,9 +18,27 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onAuthClickButton()
+        binding.phone.setText("+79219999999")
+        stateObserver(viewModel.loadingState()) { state -> observer(state) }
+    }
 
-        viewModel
+    private fun observer(state: LoadingState) {
+        if (state == LoadingState.Success) {
+            findNavController().navigate(
+                AuthorizationFragmentDirections.actionAuthorizationFragmentToConfirmationCodeFragment(
+                    binding.phone.text.toString()
+                )
+            )
+            viewModel.onResetLoadingState()
+        }
 
+    }
+
+    private fun onAuthClickButton() {
+        binding.authButton.setOnClickListener {
+            viewModel.sendPhone(binding.phone.text.toString())
+        }
     }
 
 }

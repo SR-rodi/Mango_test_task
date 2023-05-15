@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Mango_test_task</string>
+    <string name="auth_hello_title">Рады снова Вас видеть</string>
+    <string name="auth_info_message">Для авторизации введите номер телефона</string>
+    <string name="auth_button">Авторизоваться</string>
+    <string name="confirmation_button">Проверить</string>
+    <string name="confirmation_code_title">Код подтверждения</string>
+    <string name="confirmation_code_message">Веведите код из смс</string>
 </resources>
