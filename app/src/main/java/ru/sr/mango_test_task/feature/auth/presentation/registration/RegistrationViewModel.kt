@@ -6,7 +6,7 @@ import ru.sr.mango_test_task.core.base.BaseViewModel
 
 class RegistrationViewModel(
     private val registrationUseCase: RegistrationUseCase,
-) : BaseViewModel<RegistrationState>() {
+) : BaseViewModel<String,String>("") {
 
     fun userRegistration(phone: String, name: String, username: String) =
         scopeLaunch(context = Dispatchers.IO) {

@@ -1,6 +1,5 @@
 package ru.sr.mango_test_task.core.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -13,40 +12,35 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-abstract class BaseViewModel <ViewState>(): ViewModel() {
+abstract class BaseViewModel<ViewState, ViewAction>(initState: ViewState) : ViewModel() {
 
-    private val _loadingState =
-        MutableSharedFlow<LoadingState>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    private val _viewStates = MutableStateFlow<ViewState?>(null)
+    private val _viewStates = MutableStateFlow(initState)
+    private val _viewActions =
+        MutableSharedFlow<ViewAction?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    private var viewState: ViewState?
+    protected var viewState: ViewState
         get() = _viewStates.value
         set(value) {
             _viewStates.value = value
         }
 
-    protected var loadingState: LoadingState
-        get() = _loadingState.replayCache.last()
+    protected var viewAction: ViewAction?
+        get() = _viewActions.replayCache.last()
         set(value) {
-            _loadingState.tryEmit(value)
+            _viewActions.tryEmit(value)
         }
 
     fun viewStates() = _viewStates.asStateFlow()
-    fun loadingState() = _loadingState.asSharedFlow()
+    fun viewAction() = _viewActions.asSharedFlow()
 
-    protected open fun onError(exception: Exception) {
-        Log.e("Kart", exception.toString())
-        loadingState = LoadingState.Error
-    }
-
-    fun onResetLoadingState() {
-        loadingState = LoadingState.Start
+    fun onResetAction() {
+        viewAction = null
     }
 
     protected inline fun scopeLaunch(
         context: CoroutineContext = EmptyCoroutineContext,
         crossinline onFinally: () -> Unit = {},
-        crossinline onError: (t: Exception) -> Unit = ::onError,
+        crossinline onError: (t: Exception) -> Unit = {},
         crossinline job: suspend () -> Unit,
     ): Job {
         return viewModelScope.launch(context) {

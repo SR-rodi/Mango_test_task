@@ -3,25 +3,26 @@ package ru.sr.mango_test_task.feature.auth.presentation.authorization
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.core.base.BaseFragment
-import ru.sr.mango_test_task.core.base.LoadingState
 import ru.sr.mango_test_task.core.extension.setOnSelectedItem
 import ru.sr.mango_test_task.databinding.FragmentAuthorizationBinding
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.adapter.PhoneCodeAdapter
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.adapter.CountryAdapter
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthAction
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthState
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.setFormatMask
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.setMask
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.toStringWithoutMask
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
     private val viewModel by lazy { initViewModel<AuthorizationViewModel>() }
 
-    private val adapter by lazy {
-        ArrayAdapter(
-            requireContext(),
-            R.layout.dropdown_code_item,
-            viewModel.getCountry().values.toTypedArray()
-        )
+    private val phoneCodeAdapter by lazy {
+        PhoneCodeAdapter(viewModel.getCountry().values.toList())
     }
     private val adapterCountry by lazy {
         CountryAdapter(viewModel.getCountry().keys.toList())
@@ -33,36 +34,69 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.phoneNumber.setMask()
+
         settingSpinners()
         onAuthClickButton()
-        stateObserver(viewModel.loadingState()) { state -> observer(state) }
-        binding.phone.setText("+79219999999")
+        flowObserver(viewModel.viewStates()) { state -> stateObserver(state) }
+        flowObserver(viewModel.viewAction()) { action -> actionObserver(action) }
     }
 
-    private fun settingSpinners(){
-        binding.code.adapter = adapter
-        binding.code.setOnSelectedItem { position ->
-            binding.country.setSelection(position)
-        }
-
-        binding.country.adapter = adapterCountry
-        binding.country.setOnSelectedItem { position ->
-            binding.code.setSelection(position)
-        }
-    }
-
-    private fun observer(state: LoadingState) {
-        if (state == LoadingState.Success) {
-            findNavController().navigate(
-                AuthorizationFragmentDirections.actionAuthorizationFragmentToConfirmationCodeFragment(
-                    binding.phone.text.toString()
-                )
-            )
-            viewModel.onResetLoadingState()
+    private fun actionObserver(action: AuthAction?) {
+        when (action) {
+            AuthAction.NavigateCheckCodeFragment -> {
+                navigationToConfirmationCodeFragment()
+                viewModel.onResetAction()
+            }
+            null -> {}
         }
     }
 
-    private fun onAuthClickButton() =binding.authButton.setOnClickListener {
-            viewModel.sendPhone(binding.phone.text.toString())
+    private fun settingSpinners() {
+        binding.countryCode.adapter = phoneCodeAdapter
+        binding.countryCode.setOnSelectedItem { position ->
+            binding.countryFlag.setSelection(position)
+            viewModel.setCurrentPhoneCode(binding.countryCode.adapter.getItem(position))
         }
+
+        binding.countryFlag.adapter = adapterCountry
+        binding.countryFlag.setOnSelectedItem { position ->
+            binding.countryCode.setSelection(position)
+            binding.phoneNumber.setFormatMask(phoneCodeAdapter.getItem(position).format)
+            binding.phoneLayout.hint = phoneCodeAdapter.getItem(position).format
+            binding.phoneNumber.setText(binding.phoneNumber.text.toString())
+        }
+    }
+
+    private fun onAuthClickButton() = binding.authButton.setOnClickListener {
+        viewModel.sendPhone(binding.phoneNumber.toStringWithoutMask())
+    }
+
+    private fun stateObserver(state: AuthState) {
+        loadState(state.isLoading)
+        errorPhoneState(state.isErrorPhoneNumber)
+        binding.errorNetwork.error.isVisible = state.isErrorNetwork
+    }
+
+    private fun errorPhoneState(errorPhoneNumber: Boolean) {
+        binding.phoneLayout.error =
+            if (errorPhoneNumber) getString(R.string.no_verification_phone_number)
+            else null
+    }
+
+    private fun navigationToConfirmationCodeFragment() = findNavController().navigate(
+        AuthorizationFragmentDirections.actionAuthorizationFragmentToConfirmationCodeFragment(
+            binding.phoneNumber.text.toString()
+        )
+    )
+
+
+    private fun loadState(isLoading: Boolean) = binding.apply {
+        phoneLayout.isEnabled = !isLoading
+        countryCode.isEnabled = !isLoading
+        countryFlag.isEnabled = !isLoading
+        authButton.isEnabled = !isLoading
+        progressBar.isVisible = isLoading
+    }
+
 }

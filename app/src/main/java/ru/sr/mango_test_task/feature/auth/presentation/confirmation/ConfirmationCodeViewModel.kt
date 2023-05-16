@@ -6,11 +6,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.sr.mango_test_task.feature.auth.domen.usecase.CheckCodeUseCase
 import ru.sr.mango_test_task.core.base.BaseViewModel
-import ru.sr.mango_test_task.core.base.ViewState
 
 class ConfirmationCodeViewModel(
     private val checkCodeUseCase: CheckCodeUseCase,
-) : BaseViewModel<ConfirmationViewState>() {
+) : BaseViewModel<String,ConfirmationViewState>("") {
 
     private val _isRegistrationUser = MutableStateFlow(false)
     val isRegistrationUser = _isRegistrationUser.asStateFlow()

@@ -1,23 +1,46 @@
 package ru.sr.mango_test_task.feature.auth.presentation.authorization
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import ru.sr.mango_test_task.core.base.BaseViewModel
 import ru.sr.mango_test_task.core.base.LoadingState
+import ru.sr.mango_test_task.feature.auth.data.repository.PhoneFormat
 import ru.sr.mango_test_task.feature.auth.domen.usecase.CountryUseCase
 import ru.sr.mango_test_task.feature.auth.domen.usecase.SendPhoneUseCase
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthAction
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthState
+import java.lang.Error
 
 class AuthorizationViewModel(
     private val sendPhoneUseCase: SendPhoneUseCase,
     private val countryUseCase: CountryUseCase,
-) : BaseViewModel<AuthState>() {
+) : BaseViewModel<AuthState, AuthAction>(AuthState()) {
 
-    fun getCountry() = countryUseCase.getCountry()
+    private var phoneCode = ""
 
-    fun sendPhone(phone: String) = scopeLaunch(context = Dispatchers.IO) {
-        loadingState = LoadingState.Loading
-        sendPhoneUseCase.send(phone)
-        loadingState = LoadingState.Success
+    fun getCountry() =
+        countryUseCase.getCountry()
+
+    fun sendPhone(phone: String) = scopeLaunch(context = Dispatchers.IO, onError = ::onError) {
+        val newPhone = phoneCode + phone
+        if (newPhone.length == 12) {
+            viewState =
+                viewState.copy(isLoading = true, isErrorNetwork = false, isErrorPhoneNumber = false)
+            sendPhoneUseCase.send("$phoneCode$phone")
+            viewState = viewState.copy(isLoading = false)
+            viewAction = AuthAction.NavigateCheckCodeFragment
+        } else viewState = viewState.copy(isErrorPhoneNumber = true)
+    }
+
+    private fun onError(error: Exception) {
+        Log.e("Kart","$error")
+        viewState =
+            viewState.copy(isLoading = false, isErrorNetwork = true, isErrorPhoneNumber = false)
+    }
+
+    fun setCurrentPhoneCode(code: Any?) {
+        if (code is PhoneFormat)
+            phoneCode = code.code
     }
 }
 

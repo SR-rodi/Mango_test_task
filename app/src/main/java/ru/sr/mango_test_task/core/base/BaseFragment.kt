@@ -34,7 +34,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         return binding.root
     }
 
-    fun <I : Any> stateObserver(flow: Flow<I>, block: suspend (it: I) -> Unit) {
+    fun <I : Any?> flowObserver(flow: Flow<I>, block: suspend (it: I) -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
             flow.collect {
                 block(it)
