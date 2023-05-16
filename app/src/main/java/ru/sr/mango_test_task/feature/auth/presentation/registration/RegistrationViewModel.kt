@@ -1,24 +1,70 @@
 package ru.sr.mango_test_task.feature.auth.presentation.registration
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.feature.auth.domen.usecase.RegistrationUseCase
 import ru.sr.mango_test_task.core.base.BaseViewModel
+import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
+import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
+import java.lang.Exception
 
 class RegistrationViewModel(
     private val registrationUseCase: RegistrationUseCase,
-) : BaseViewModel<RegistrationState, String>(RegistrationState()) {
+    private val nameValidator: UserNameValidation,
+    private val resource: ResourceProvider,
+) : BaseViewModel<RegistrationState, RegistrationAction>(RegistrationState()) {
+
 
     fun userRegistration(phone: String, name: String, username: String) =
-        scopeLaunch(context = Dispatchers.IO) {
-            registrationUseCase.registration(phone, name, username)
+        scopeLaunch(context = Dispatchers.IO, onError = ::onError) {
+            val isValidationUserName = nameValidator.checkUserName(username)
+            val isValidationName = nameValidator.checkName(name)
+
+            if (isValidationUserName && isValidationName) {
+                startLoading()
+                registrationUseCase.registration(phone, name, username)
+                finishLoading()
+                viewAction = RegistrationAction.NavigateProfile
+            } else viewState = viewState.copy(
+                errorFieldUserName = setErrorMessage(isValidationUserName),
+                errorFieldName = setErrorMessage(isValidationName)
+            )
         }
+
+    private fun setErrorMessage(isValidation: Boolean): String? {
+        return if (!isValidation) resource.getString(R.string.registration_error_message) else null
+    }
+
+    private fun startLoading() {
+        viewState = viewState.copy(
+            isLoading = true,
+            isNetworkError = false,
+            errorFieldName = null,
+            errorFieldUserName = null
+        )
+    }
+
+    private fun finishLoading() {
+        viewState = RegistrationState()
+    }
+
+    private fun onError(exception: Exception){
+        Log.e("Kart",exception.toString())
+        viewState = viewState.copy(
+            isNetworkError = false,
+            isLoading = false,
+        )
+    }
 }
 
-data class RegistrationState (
+data class RegistrationState(
     val isLoading: Boolean = false,
     val isNetworkError: Boolean = false,
+    val errorFieldName: String? = null,
+    val errorFieldUserName: String? = null,
 )
 
-sealed interface RegistrationAction{
-    object NavigateProfile:RegistrationAction
+sealed interface RegistrationAction {
+    object NavigateProfile : RegistrationAction
 }

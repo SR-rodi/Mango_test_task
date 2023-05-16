@@ -40,7 +40,7 @@ class ConfirmationCodeFragment : BaseFragment<FragmentConfirmationCodeBinding>()
             ConfirmationViewAction.NavigationOnRegistration ->
                 navigation(
                     ConfirmationCodeFragmentDirections
-                        .actionConfirmationCodeFragmentToRegistrationFragment()
+                        .actionConfirmationCodeFragmentToRegistrationFragment(args.phone)
                 )
 
             null -> {}

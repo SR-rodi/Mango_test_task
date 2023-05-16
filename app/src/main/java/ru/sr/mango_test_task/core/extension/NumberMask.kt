@@ -9,7 +9,7 @@ fun TextInputEditText.setFormatMask(new: String) {
 
 
 object NumberFormat{
-    var format  = "(XXX)-XX-XX"
+    var format  = "(XXX)-XXX-XX-XX"
 }
 
 fun TextInputEditText.toStringWithoutMask(): String {

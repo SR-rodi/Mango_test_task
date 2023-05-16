@@ -7,6 +7,8 @@ import ru.sr.mango_test_task.feature.root.data.provider.TokenProviderImpl
 import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.RefreshTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
+import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
+import ru.sr.mango_test_task.feature.root.domain.validation.impl.UserNameValidationImpl
 
 @dagger.Module
 class ProviderModel {
@@ -22,6 +24,10 @@ class ProviderModel {
     @Provides
     fun providerResourceProvider(context: Context): ResourceProvider =
         ResourceProviderImpl(context.resources)
+
+    @Provides
+    fun providerValidation(): UserNameValidation =
+        UserNameValidationImpl()
 
     private companion object {
         const val SHARED_REFRESH_TOKEN_NAME = "refresh_shared"

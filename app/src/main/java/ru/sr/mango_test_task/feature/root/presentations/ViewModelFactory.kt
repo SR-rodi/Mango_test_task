@@ -10,6 +10,7 @@ import ru.sr.mango_test_task.feature.auth.presentation.authorization.Authorizati
 import ru.sr.mango_test_task.feature.auth.presentation.confirmation.ConfirmationCodeViewModel
 import ru.sr.mango_test_task.feature.auth.presentation.registration.RegistrationViewModel
 import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
+import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
 import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(
@@ -17,7 +18,8 @@ class ViewModelFactory @Inject constructor(
     private val checkCodeUseCase: CheckCodeUseCase,
     private val registrationUseCase: RegistrationUseCase,
     private val countryUseCase: CountryUseCase,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val userNameValidation: UserNameValidation
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -27,7 +29,7 @@ class ViewModelFactory @Inject constructor(
         ConfirmationCodeViewModel::class.java->
             ConfirmationCodeViewModel(checkCodeUseCase,resourceProvider) as T
         RegistrationViewModel::class.java->
-            RegistrationViewModel(registrationUseCase) as T
+            RegistrationViewModel(registrationUseCase,userNameValidation,resourceProvider) as T
         else -> throw IllegalAccessError("error create viewModel")
     }
 }

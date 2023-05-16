@@ -1,15 +1,40 @@
 <resources>
     <string name="app_name">Mango_test_task</string>
-    <string name="auth_hello_title">Рады снова Вас видеть</string>
-    <string name="auth_info_message">Для авторизации введите номер телефона</string>
-    <string name="auth_button">Авторизоваться</string>
+
     <string name="confirmation_button">Проверить</string>
     <string name="confirmation_code_title">Код подтверждения</string>
     <string name="confirmation_code_message">Веведите код из смс</string>
-    <string name="no_verification_phone_number">* Номер делефон должен состоять из 11 цифр включая код страны</string>
-    <string name="auth_choice_info">Выбурите страну или ее код страны</string>
-    <string name="error_network_message">Обнаружены проблкмы с интернетом. Проосьба проверить состояние сети и повторить попытку</string>
+
     <string name="auth_confirmation_no_verification_local_code">*Длина кода должна составлять 6 символов</string>
     <string name="auth_confirmation_no_verification_remote_code">Код не существует. Ввкдите правильный код</string>
+    <string name="auth_choice_info">Выбурите страну или ее код страны</string>
+    <string name="auth_hello_title">Рады снова Вас видеть</string>
+    <string name="auth_info_message">Для авторизации введите номер телефона</string>
+    <string name="auth_button">Авторизоваться</string>
+    <string name="no_verification_phone_number">* Номер делефон должен состоять из 11 цифр включая код страны</string>
+
+    <string name="registration_title">Регистрация</string>
+    <string name="registration_message">Заполните все поля</string>
+    <string name="registration_button">Зарегестрировать</string>
+    <string name="registration_error_message">не потдерживаемый символ или строка осталось пустой</string>
+
+    <string name="registration_help_name">*Имя может:\n
+         -состоять только из латинских букв;\n
+        -содержать заглавные буквы;\n
+        -содержать строчные буквы;\n
+        -потдерживает дифис;\n
+        -должно быть длинее 3x символов</string>
+
+    <string name="registration_help_user_name">*UserName может:\n
+         -состоять из латинских букв;\n
+        -содержать заглавные буквы;\n
+        -содержать строчные буквы;\n
+        -потдерживает - и _;\n
+        -должно быть длинее 5ти символов</string>
+
+    <string name="root_name">Имя</string>
+    <string name="root_userName">UserName</string>
+    <string name="error_network_message">Обнаружены проблкмы с интернетом. Проосьба проверить состояние сети и повторить попытку</string>
+    <string name="root_phone">Телефон</string>
 
 </resources>

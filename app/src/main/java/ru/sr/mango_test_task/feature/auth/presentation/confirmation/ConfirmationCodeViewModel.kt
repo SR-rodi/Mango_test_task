@@ -38,7 +38,7 @@ class ConfirmationCodeViewModel(
         }
 
     private fun onError(exception: Exception) {
-        Log.e("Kart", "Trst = $exception}")
+        Log.e("Kart", "Error = $exception}")
         viewState = if (exception.message == "HTTP 404 Not Found") {
             viewState.copy(
                 isLoading = false,
