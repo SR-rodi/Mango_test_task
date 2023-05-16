@@ -1,8 +1,8 @@
-package ru.sr.mango_test_task.feature.auth.data.provider
+package ru.sr.mango_test_task.feature.root.data.provider
 
 import android.content.Context
-import ru.sr.mango_test_task.core.domain.provider.AccessTokenProvider
-import ru.sr.mango_test_task.core.domain.provider.RefreshTokenProvider
+import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
+import ru.sr.mango_test_task.feature.root.domain.provider.RefreshTokenProvider
 
 class TokenProviderImpl(
     context: Context,
@@ -13,7 +13,7 @@ class TokenProviderImpl(
     private val preferenceToken =
         context.getSharedPreferences(sharedName, Context.MODE_PRIVATE)
 
-    override fun putToken(token: String) {
+    override fun putToken(token: String?) {
         preferenceToken.edit().putString(key, token).apply()
     }
 

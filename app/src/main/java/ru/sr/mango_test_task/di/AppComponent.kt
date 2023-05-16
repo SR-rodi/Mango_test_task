@@ -7,7 +7,7 @@ import ru.sr.mango_test_task.di.module.ProviderModel
 import ru.sr.mango_test_task.feature.auth.di.RepositoryModule
 import ru.sr.mango_test_task.di.module.RetrofitModule
 import ru.sr.mango_test_task.feature.auth.di.UseCaseModule
-import ru.sr.mango_test_task.presentations.ViewModelFactory
+import ru.sr.mango_test_task.feature.root.presentations.ViewModelFactory
 import javax.inject.Singleton
 
 @Singleton

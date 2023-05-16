@@ -9,6 +9,7 @@
     <string name="no_verification_phone_number">* Номер делефон должен состоять из 11 цифр включая код страны</string>
     <string name="auth_choice_info">Выбурите страну или ее код страны</string>
     <string name="error_network_message">Обнаружены проблкмы с интернетом. Проосьба проверить состояние сети и повторить попытку</string>
-    <string name="auth_confirmation_no_verification_code">*Длина кода должна составлять 6 символов</string>
+    <string name="auth_confirmation_no_verification_local_code">*Длина кода должна составлять 6 символов</string>
+    <string name="auth_confirmation_no_verification_remote_code">Код не существует. Ввкдите правильный код</string>
 
 </resources>

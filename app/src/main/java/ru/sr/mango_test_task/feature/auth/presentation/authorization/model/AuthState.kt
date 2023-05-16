@@ -5,4 +5,3 @@ data class AuthState(
     val isErrorNetwork: Boolean = false,
     val isErrorPhoneNumber: Boolean = false,
 )
-

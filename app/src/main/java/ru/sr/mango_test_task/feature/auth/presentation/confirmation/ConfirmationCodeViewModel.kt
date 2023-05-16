@@ -2,42 +2,51 @@ package ru.sr.mango_test_task.feature.auth.presentation.confirmation
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.core.base.BaseViewModel
 import ru.sr.mango_test_task.feature.auth.domen.usecase.CheckCodeUseCase
 import ru.sr.mango_test_task.feature.auth.presentation.confirmation.model.ConfirmationViewAction
 import ru.sr.mango_test_task.feature.auth.presentation.confirmation.model.ConfirmationViewState
+import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
 
 class ConfirmationCodeViewModel(
     private val checkCodeUseCase: CheckCodeUseCase,
+    private val resource: ResourceProvider,
 ) : BaseViewModel<ConfirmationViewState, ConfirmationViewAction>(ConfirmationViewState()) {
 
     fun checkCode(phone: String, code: String) =
         scopeLaunch(context = Dispatchers.IO, onError = ::onError) {
-            Log.e("Kart","Trst = ${code.length}")
             if (code.length == 6) {
                 viewState = viewState.copy(
-                    isCodeFieldError = false,
+                    ErrorMessageField = null,
                     isLoading = true,
                     isNetworkError = false
                 )
-                viewAction = if (checkCodeUseCase.check(phone, code).isUserExists == true)
+                viewAction = if (checkCodeUseCase.check(phone, code))
                     ConfirmationViewAction.NavigationOnProfile
                 else ConfirmationViewAction.NavigationOnRegistration
                 viewState = viewState.copy(
-                    isCodeFieldError = false,
+                    ErrorMessageField = null,
                     isLoading = false,
                     isNetworkError = false
                 )
-            } else viewState = viewState.copy(isCodeFieldError = true)
-
-
+            } else viewState =
+                viewState.copy(
+                    ErrorMessageField =
+                    resource.getString(R.string.auth_confirmation_no_verification_local_code)
+                )
         }
 
     private fun onError(exception: Exception) {
-        if (exception.message == "HTTP 404 Not Found") {
-            viewAction = ConfirmationViewAction.NavigationOnRegistration
-        } else viewState = viewState.copy(
-            isCodeFieldError = false, isNetworkError = true
+        Log.e("Kart", "Trst = $exception}")
+        viewState = if (exception.message == "HTTP 404 Not Found") {
+            viewState.copy(
+                isLoading = false,
+                ErrorMessageField = resource.getString(R.string.auth_confirmation_no_verification_remote_code),
+                isNetworkError = false
+            )
+        } else viewState.copy(
+            ErrorMessageField = null, isNetworkError = true, isLoading = false,
         )
     }
 }

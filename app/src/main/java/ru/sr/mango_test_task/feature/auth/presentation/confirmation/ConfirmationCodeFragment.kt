@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
-import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.databinding.FragmentConfirmationCodeBinding
 import ru.sr.mango_test_task.core.base.BaseFragment
 import ru.sr.mango_test_task.core.extension.setFormatMask
@@ -49,14 +48,13 @@ class ConfirmationCodeFragment : BaseFragment<FragmentConfirmationCodeBinding>()
     }
 
     private fun stateObserver(state: ConfirmationViewState) {
-        errorCodeState(state.isCodeFieldError)
+        errorCodeState(state.ErrorMessageField)
         loadState(state.isLoading)
         binding.errorNetwork.error.isVisible = state.isNetworkError
     }
 
-    private fun errorCodeState(isCodeFieldError: Boolean) {
-        binding.authCodeLayout.error = if (isCodeFieldError)
-            getString(R.string.auth_confirmation_no_verification_code) else null
+    private fun errorCodeState(isCodeFieldError: String?) {
+        binding.authCodeLayout.error = isCodeFieldError
     }
 
     private fun loadState(isLoading: Boolean) = binding.apply {
