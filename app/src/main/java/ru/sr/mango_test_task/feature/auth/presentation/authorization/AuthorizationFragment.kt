@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.core.base.BaseFragment
 import ru.sr.mango_test_task.core.extension.setOnSelectedItem
 import ru.sr.mango_test_task.databinding.FragmentAuthorizationBinding
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.adapter.PhoneCodeAdapter
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.adapter.CountryAdapter
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthAction
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthState
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.setFormatMask
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.setMask
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.toStringWithoutMask
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.model.AuthAction
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.model.AuthState
+import ru.sr.mango_test_task.core.extension.setFormatMask
+import ru.sr.mango_test_task.core.extension.setMask
+import ru.sr.mango_test_task.core.extension.toStringWithoutMask
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
@@ -35,7 +34,6 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.phoneNumber.setMask()
-
         settingSpinners()
         onAuthClickButton()
         flowObserver(viewModel.viewStates()) { state -> stateObserver(state) }
@@ -44,10 +42,11 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
     private fun actionObserver(action: AuthAction?) {
         when (action) {
-            AuthAction.NavigateCheckCodeFragment -> {
-                navigationToConfirmationCodeFragment()
+            is AuthAction.NavigateCheckCodeFragment -> {
+                navigationToConfirmationCodeFragment(action.phone)
                 viewModel.onResetAction()
             }
+
             null -> {}
         }
     }
@@ -84,10 +83,8 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
             else null
     }
 
-    private fun navigationToConfirmationCodeFragment() = findNavController().navigate(
-        AuthorizationFragmentDirections.actionAuthorizationFragmentToConfirmationCodeFragment(
-            binding.phoneNumber.text.toString()
-        )
+    private fun navigationToConfirmationCodeFragment(phone: String) = navigation(
+        AuthorizationFragmentDirections.actionAuthorizationFragmentToConfirmationCodeFragment(phone)
     )
 
 

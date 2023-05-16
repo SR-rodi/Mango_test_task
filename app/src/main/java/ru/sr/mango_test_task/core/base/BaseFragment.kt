@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -40,6 +42,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
                 block(it)
             }
         }
+    }
+
+    protected fun navigation(directions: NavDirections) {
+        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {

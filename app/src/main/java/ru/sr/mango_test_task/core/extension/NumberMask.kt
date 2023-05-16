@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate
+package ru.sr.mango_test_task.core.extension
 
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText

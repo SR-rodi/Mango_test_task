@@ -3,13 +3,11 @@ package ru.sr.mango_test_task.feature.auth.presentation.authorization
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import ru.sr.mango_test_task.core.base.BaseViewModel
-import ru.sr.mango_test_task.core.base.LoadingState
 import ru.sr.mango_test_task.feature.auth.data.repository.PhoneFormat
 import ru.sr.mango_test_task.feature.auth.domen.usecase.CountryUseCase
 import ru.sr.mango_test_task.feature.auth.domen.usecase.SendPhoneUseCase
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthAction
-import ru.sr.mango_test_task.feature.auth.presentation.authorization.viewstate.AuthState
-import java.lang.Error
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.model.AuthAction
+import ru.sr.mango_test_task.feature.auth.presentation.authorization.model.AuthState
 
 class AuthorizationViewModel(
     private val sendPhoneUseCase: SendPhoneUseCase,
@@ -28,7 +26,7 @@ class AuthorizationViewModel(
                 viewState.copy(isLoading = true, isErrorNetwork = false, isErrorPhoneNumber = false)
             sendPhoneUseCase.send("$phoneCode$phone")
             viewState = viewState.copy(isLoading = false)
-            viewAction = AuthAction.NavigateCheckCodeFragment
+            viewAction = AuthAction.NavigateCheckCodeFragment(newPhone)
         } else viewState = viewState.copy(isErrorPhoneNumber = true)
     }
 
