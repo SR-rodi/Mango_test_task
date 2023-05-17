@@ -35,6 +35,7 @@
         -должно быть длиннее 5ти символов</string>
 
     <string name="profile_update_button">Сохранить</string>
+    <string name="profile_chat_button">Чат</string>
     <string name="profile_update_success_message">Обновление прошло успешно</string>
 
 

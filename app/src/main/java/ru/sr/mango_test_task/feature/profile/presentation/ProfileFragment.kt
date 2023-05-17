@@ -35,6 +35,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         flowObserver(viewModel.viewAction()) { action -> actionObserver(action) }
         binding.userAvatar.setOnClickListener { getItem.launch(INPUT) }
         binding.saveButton.setOnClickListener { updateButtonClick() }
+        binding.chatButton.setOnClickListener {
+            navigation(ProfileFragmentDirections.actionProfileFragmentToTicketsRoomFragment())
+        }
     }
 
     private fun updateButtonClick() =
@@ -46,14 +49,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun stateObserver(state: ProfileState) = binding.apply {
-            progressBar.isVisible = state.isLoading
-            errorNetwork.error.isVisible = state.isError
-            birthDay.setText(state.user?.birthday)
-            phoneNumber.setText(state.user?.phone)
-            userName.setText(state.user?.username)
-            city.setText(state.user?.city)
-            userAvatar.loadImage(state.user?.avatar)
-        }
+        progressBar.isVisible = state.isLoading
+        errorNetwork.error.isVisible = state.isError
+        birthDay.setText(state.user?.birthday)
+        phoneNumber.setText(state.user?.phone)
+        userName.setText(state.user?.username)
+        city.setText(state.user?.city)
+        userAvatar.loadImage(state.user?.avatar)
+    }
 
     private fun actionObserver(action: ProfileAction?) = when (action) {
         ProfileAction.ShowSuccessToast ->
@@ -62,7 +65,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         null -> {}
     }
 
-    private companion object{
+    private companion object {
         const val MASK = "XX.XX.XXXX"
         const val INPUT = "image/*"
     }

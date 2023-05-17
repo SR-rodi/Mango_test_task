@@ -3,6 +3,7 @@ package ru.sr.mango_test_task.feature.auth.presentation.authorization
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import ru.sr.mango_test_task.core.base.BaseFragment
 import ru.sr.mango_test_task.core.extension.setOnSelectedItem
@@ -27,7 +28,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding.phoneNumber.setMask()
         settingSpinners()
         binding.authButton.setOnClickListener { onAuthClickButton() }
