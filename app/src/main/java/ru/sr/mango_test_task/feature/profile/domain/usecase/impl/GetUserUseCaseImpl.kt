@@ -11,9 +11,11 @@ class GetUserUseCaseImpl(
 ) : GetUserUseCase {
     override suspend fun get(): UserProfileDomainModel {
         val locationUser = locationRepository.getCurrentUser()
-        if (locationUser != null) return locationUser
-        val currentUser = remoteRepository.getCurrentUser()
-        locationRepository.insertUser(currentUser)
-        return currentUser
+        return if (locationUser != null) locationUser
+        else {
+            val currentUser = remoteRepository.getCurrentUser()
+            locationRepository.insertUser(currentUser)
+            currentUser
+        }
     }
 }

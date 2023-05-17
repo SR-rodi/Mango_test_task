@@ -19,6 +19,8 @@ class Base64EncoderImpl(private val applicationContext: Context) : Base64Encoder
         bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream)
         val byteArray: ByteArray = stream.toByteArray()
 
+        Base64.encodeToString(byteArray, Base64.DEFAULT)
+
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
 
     }

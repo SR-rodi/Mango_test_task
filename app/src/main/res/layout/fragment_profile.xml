@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".feature.profile.ProfileFragment">
 
-
     <View
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -31,6 +30,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="25dp"
         app:cardCornerRadius="360dp"
+        android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/header">
@@ -51,7 +51,6 @@
             style="@style/Widget.Material3.Button.TextButton.Icon"
             app:backgroundTint="@color/white"
             />
-
 
     </androidx.cardview.widget.CardView>
 
@@ -134,5 +133,28 @@
             android:text="@string/profile_update_button" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/green_200" />
+    </FrameLayout>
+
+    <include layout="@layout/error_internet_tem"
+        android:id="@+id/error_network"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

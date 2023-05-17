@@ -25,6 +25,7 @@ class ProfileUseCaseModule() {
     @Singleton
     fun providerUpdateUserUseCase(
         remoteRepository: ProfileRemoteRepository,
+        locationRepository: ProfileLocationRepository,
     ): UpdateUserUseCase =
-        UpdateUserUseCaseImpl(remoteRepository)
+        UpdateUserUseCaseImpl(remoteRepository,locationRepository)
 }

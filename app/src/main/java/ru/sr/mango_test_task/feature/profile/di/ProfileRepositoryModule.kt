@@ -10,6 +10,7 @@ import ru.sr.mango_test_task.feature.profile.data.repository.ProfileRemoteReposi
 import ru.sr.mango_test_task.feature.profile.domain.repository.ProfileLocationRepository
 import ru.sr.mango_test_task.feature.profile.domain.repository.ProfileRemoteRepository
 import ru.sr.mango_test_task.feature.root.domain.encoder.Base64Encoder
+import ru.sr.mango_test_task.feature.root.domain.provider.UserIdProvider
 import javax.inject.Singleton
 
 @Module
@@ -17,11 +18,17 @@ class ProfileRepositoryModule {
 
     @Provides
     @Singleton
-    fun providerProfileRemoteRepository(api: ProfileApi,encoder: Base64Encoder): ProfileRemoteRepository =
-        ProfileRemoteRepositoryImpl(api,encoder)
+    fun providerProfileRemoteRepository(
+        api: ProfileApi,
+        encoder: Base64Encoder,
+    ): ProfileRemoteRepository =
+        ProfileRemoteRepositoryImpl(api, encoder)
 
     @Provides
     @Singleton
-    fun providerProfileLocationRepository(dao: UserDao): ProfileLocationRepository =
-        ProfileLocationRepositoryImpl(dao)
+    fun providerProfileLocationRepository(
+        dao: UserDao,
+        userIdProvider: UserIdProvider,
+    ): ProfileLocationRepository =
+        ProfileLocationRepositoryImpl(dao, userIdProvider)
 }
