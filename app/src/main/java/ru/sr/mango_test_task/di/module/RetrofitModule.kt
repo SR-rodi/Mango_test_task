@@ -9,6 +9,7 @@ import retrofit2.create
 import ru.sr.mango_test_task.feature.auth.data.api.MangoApi
 import ru.sr.mango_test_task.feature.profile.data.api.ProfileApi
 import ru.sr.mango_test_task.feature.root.data.AuthInterceptor
+import ru.sr.mango_test_task.feature.root.data.RefreshApi
 import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import javax.inject.Singleton
 
@@ -45,6 +46,11 @@ class RetrofitModule {
     @Provides
     @Singleton
     fun provideProfileApi(retrofit: Retrofit): ProfileApi = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideRefreshApi(retrofit: Retrofit): RefreshApi = retrofit.create()
+
 
     companion object {
         private const val BASE_URL = "https://plannerok.ru/api/v1/"

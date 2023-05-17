@@ -8,6 +8,7 @@ import ru.sr.mango_test_task.feature.profile.domain.usecase.GetUserUseCase
 import ru.sr.mango_test_task.feature.profile.domain.usecase.impl.GetUserUseCaseImpl
 import ru.sr.mango_test_task.feature.profile.domain.usecase.UpdateUserUseCase
 import ru.sr.mango_test_task.feature.profile.domain.usecase.impl.UpdateUserUseCaseImpl
+import ru.sr.mango_test_task.feature.root.domain.repository.RefreshRepository
 import javax.inject.Singleton
 
 @Module
@@ -26,6 +27,7 @@ class ProfileUseCaseModule {
     fun providerUpdateUserUseCase(
         remoteRepository: ProfileRemoteRepository,
         locationRepository: ProfileLocationRepository,
+        refreshRepository: RefreshRepository
     ): UpdateUserUseCase =
-        UpdateUserUseCaseImpl(remoteRepository,locationRepository)
+        UpdateUserUseCaseImpl(remoteRepository,locationRepository,refreshRepository)
 }

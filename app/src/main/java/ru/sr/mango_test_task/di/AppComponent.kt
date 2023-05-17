@@ -3,6 +3,7 @@ package ru.sr.mango_test_task.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.sr.mango_test_task.di.module.RefreshModule
 import ru.sr.mango_test_task.di.module.UtilsModel
 import ru.sr.mango_test_task.feature.auth.di.AuthRepositoryModule
 import ru.sr.mango_test_task.di.module.RetrofitModule
@@ -22,7 +23,8 @@ import javax.inject.Singleton
         AuthUseCaseModule::class,
         DatabaseModule::class,
         ProfileUseCaseModule::class,
-        ProfileRepositoryModule::class
+        ProfileRepositoryModule::class,
+        RefreshModule::class
     ]
 )
 interface AppComponent {

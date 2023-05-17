@@ -13,5 +13,4 @@ interface UpdateUserUseCase {
         phone:String,
         currentAvatar:String?,
     ):String?
-
 }
