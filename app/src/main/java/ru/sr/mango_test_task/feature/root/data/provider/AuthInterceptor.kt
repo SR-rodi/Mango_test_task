@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.root.data
+package ru.sr.mango_test_task.feature.root.data.provider
 
 import okhttp3.Interceptor
 import okhttp3.Response

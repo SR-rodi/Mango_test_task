@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.root.data
+package ru.sr.mango_test_task.feature.root.data.body
 
 import com.google.gson.annotations.SerializedName
 

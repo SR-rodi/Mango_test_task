@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.root.data
+package ru.sr.mango_test_task.feature.root.data.dto
 
 data class ResponseRefresh(
     val access_token: String,

@@ -1,7 +1,7 @@
 package ru.sr.mango_test_task.feature.root.data.repository
 
-import ru.sr.mango_test_task.feature.root.data.RefreshApi
-import ru.sr.mango_test_task.feature.root.data.RefreshBody
+import ru.sr.mango_test_task.feature.root.data.api.RefreshApi
+import ru.sr.mango_test_task.feature.root.data.body.RefreshBody
 import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.RefreshTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.repository.RefreshRepository

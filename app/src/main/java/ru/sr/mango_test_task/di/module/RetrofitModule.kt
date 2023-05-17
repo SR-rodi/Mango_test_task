@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.sr.mango_test_task.feature.auth.data.api.MangoApi
 import ru.sr.mango_test_task.feature.profile.data.api.ProfileApi
-import ru.sr.mango_test_task.feature.root.data.AuthInterceptor
-import ru.sr.mango_test_task.feature.root.data.RefreshApi
+import ru.sr.mango_test_task.feature.root.data.provider.AuthInterceptor
+import ru.sr.mango_test_task.feature.root.data.api.RefreshApi
 import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import javax.inject.Singleton
 
