@@ -8,14 +8,14 @@ fun TextInputEditText.setFormatMask(new: String) {
 }
 
 
-object NumberFormat{
-    var format  = "(XXX)-XXX-XX-XX"
+object NumberFormat {
+    var format = "(XXX)-XXX-XX-XX"
 }
 
 fun TextInputEditText.toStringWithoutMask(): String {
     val stingBuilder = StringBuilder()
     stingBuilder.setLength(0)
-    this.text.toString().forEach { char->
+    this.text.toString().forEach { char ->
         if (char in '0'..'9')
             stingBuilder.append(char)
     }

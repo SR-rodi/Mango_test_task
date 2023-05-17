@@ -37,10 +37,7 @@ fun Spinner.setOnSelectedItem(onSelect: (position: Int) -> Unit) {
             onSelect(position)
         }
 
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-
-        }
-
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 }
 

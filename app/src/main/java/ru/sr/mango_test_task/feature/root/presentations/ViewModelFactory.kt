@@ -24,19 +24,23 @@ class ViewModelFactory @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val userNameValidation: UserNameValidation,
     private val getUserUseCase: GetUserUseCase,
-    private val updateUserUseCase: UpdateUserUseCase
+    private val updateUserUseCase: UpdateUserUseCase,
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T = when (modelClass) {
-        AuthorizationViewModel::class.java->
-            AuthorizationViewModel(sendPhoneUseCase,countryUseCase) as T
-        ConfirmationCodeViewModel::class.java->
-            ConfirmationCodeViewModel(checkCodeUseCase,resourceProvider) as T
-        RegistrationViewModel::class.java->
-            RegistrationViewModel(registrationUseCase,userNameValidation,resourceProvider) as T
-        ProfileViewModel::class.java->
-            ProfileViewModel(getUserUseCase,updateUserUseCase) as T
+        AuthorizationViewModel::class.java ->
+            AuthorizationViewModel(sendPhoneUseCase, countryUseCase, resourceProvider) as T
+
+        ConfirmationCodeViewModel::class.java ->
+            ConfirmationCodeViewModel(checkCodeUseCase, resourceProvider) as T
+
+        RegistrationViewModel::class.java ->
+            RegistrationViewModel(registrationUseCase, userNameValidation, resourceProvider) as T
+
+        ProfileViewModel::class.java ->
+            ProfileViewModel(getUserUseCase, updateUserUseCase) as T
+
         else -> throw IllegalAccessError("error create viewModel")
     }
 }
