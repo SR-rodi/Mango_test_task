@@ -12,7 +12,7 @@ import ru.sr.mango_test_task.feature.auth.domen.repository.CountryRepository
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+class AuthRepositoryModule {
 
     @Provides
     @Singleton

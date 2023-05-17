@@ -4,9 +4,12 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.sr.mango_test_task.di.module.ProviderModel
-import ru.sr.mango_test_task.feature.auth.di.RepositoryModule
+import ru.sr.mango_test_task.feature.auth.di.AuthRepositoryModule
 import ru.sr.mango_test_task.di.module.RetrofitModule
-import ru.sr.mango_test_task.feature.auth.di.UseCaseModule
+import ru.sr.mango_test_task.feature.auth.di.AuthUseCaseModule
+import ru.sr.mango_test_task.feature.profile.di.DatabaseModule
+import ru.sr.mango_test_task.feature.profile.di.ProfileRepositoryModule
+import ru.sr.mango_test_task.feature.profile.di.ProfileUseCaseModule
 import ru.sr.mango_test_task.feature.root.presentations.ViewModelFactory
 import javax.inject.Singleton
 
@@ -15,8 +18,11 @@ import javax.inject.Singleton
     modules = [
         RetrofitModule::class,
         ProviderModel::class,
-        RepositoryModule::class,
-        UseCaseModule::class,
+        AuthRepositoryModule::class,
+        AuthUseCaseModule::class,
+        DatabaseModule::class,
+        ProfileUseCaseModule::class,
+        ProfileRepositoryModule::class
     ]
 )
 interface AppComponent {

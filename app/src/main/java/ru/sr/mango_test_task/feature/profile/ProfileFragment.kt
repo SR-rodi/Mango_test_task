@@ -9,9 +9,12 @@ import ru.sr.mango_test_task.databinding.FragmentProfileBinding
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun initBinding(inflater: LayoutInflater) = FragmentProfileBinding.inflate(inflater)
 
+    private val viewModel by lazy { initViewModel<ProfileViewModel>() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getUser()
 
     }
 }
