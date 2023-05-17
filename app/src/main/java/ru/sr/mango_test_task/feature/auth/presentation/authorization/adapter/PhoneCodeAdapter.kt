@@ -1,33 +1,19 @@
 package ru.sr.mango_test_task.feature.auth.presentation.authorization.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import ru.sr.mango_test_task.core.base.BasePhoneAdapter
 import ru.sr.mango_test_task.databinding.DropdownCodeItemBinding
-import ru.sr.mango_test_task.feature.auth.data.repository.PhoneFormat
+import ru.sr.mango_test_task.feature.auth.data.PhoneFormat
 
-class PhoneCodeAdapter(
-    private val items: List<PhoneFormat>,
-) : BaseAdapter() {
+class PhoneCodeAdapter : BasePhoneAdapter<PhoneFormat, DropdownCodeItemBinding>() {
 
-    override fun getCount() = items.size
+    override fun initBinding(parent: ViewGroup) =
+        DropdownCodeItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
-    override fun getItem(position: Int): PhoneFormat {
-        return items[position]
-    }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        return if (parent != null) {
-            val binding = DropdownCodeItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            binding.phoneCode.text = items[position].code
-            binding.root
-        } else convertView
+    override fun bind(binding: DropdownCodeItemBinding, position: Int) {
+        binding.phoneCode.text = items[position].code
     }
 }

@@ -24,7 +24,7 @@ class ConfirmationCodeFragment : BaseFragment<FragmentConfirmationCodeBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startSettings()
-        onAuthClickButton()
+        binding.authButton.setOnClickListener { onAuthClickButton() }
         flowObserver(viewModel.viewStates()) { state -> stateObserver(state) }
         flowObserver(viewModel.viewAction()) { action -> actionObserver(action) }
     }
@@ -63,9 +63,8 @@ class ConfirmationCodeFragment : BaseFragment<FragmentConfirmationCodeBinding>()
         progressBar.isVisible = isLoading
     }
 
-    private fun onAuthClickButton() = binding.authButton.setOnClickListener {
+    private fun onAuthClickButton() =
         viewModel.checkCode(args.phone, binding.authCode.toStringWithoutMask())
-    }
 
     private fun startSettings(format: String = "XX-XX-XX") = binding.apply {
         authCode.setFormatMask(format)

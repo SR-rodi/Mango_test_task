@@ -21,9 +21,10 @@ class AuthRepositoryModule {
         api: MangoApi,
         refreshTokenProvider: RefreshTokenProvider,
         accessTokenProvider: AccessTokenProvider,
-        userIdProvider: UserIdProvider
-    ): AuthRepository = AuthRepositoryImpl(api, refreshTokenProvider, accessTokenProvider,userIdProvider)
+        userIdProvider: UserIdProvider,
+    ): AuthRepository =
+        AuthRepositoryImpl(api, refreshTokenProvider, accessTokenProvider, userIdProvider)
 
     @Provides
-    fun providerCountryRepository():CountryRepository = CountryRepositoryImpl()
+    fun providerCountryRepository(): CountryRepository = CountryRepositoryImpl()
 }

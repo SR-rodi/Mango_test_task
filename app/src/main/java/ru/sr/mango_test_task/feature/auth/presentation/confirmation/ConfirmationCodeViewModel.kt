@@ -17,25 +17,31 @@ class ConfirmationCodeViewModel(
     fun checkCode(phone: String, code: String) =
         scopeLaunch(context = Dispatchers.IO, onError = ::onError) {
             if (code.length == 6) {
-                viewState = viewState.copy(
-                    ErrorMessageField = null,
-                    isLoading = true,
-                    isNetworkError = false
-                )
-                viewAction = if (checkCodeUseCase.check(phone, code))
-                    ConfirmationViewAction.NavigationOnProfile
-                else ConfirmationViewAction.NavigationOnRegistration
-                viewState = viewState.copy(
-                    ErrorMessageField = null,
-                    isLoading = false,
-                    isNetworkError = false
-                )
-            } else viewState =
-                viewState.copy(
-                    ErrorMessageField =
-                    resource.getString(R.string.auth_confirmation_no_verification_local_code)
-                )
+                startLoading()
+                val isVerifierUser = checkCodeUseCase.check(phone, code)
+                onSuccessLoading(isVerifierUser)
+            } else
+                notValidationError(resource.getString(R.string.auth_confirmation_no_verification_local_code))
         }
+
+    private fun startLoading() {
+        viewState = viewState.copy(
+            ErrorMessageField = null,
+            isLoading = true,
+            isNetworkError = false
+        )
+    }
+
+    private fun onSuccessLoading(isVerifierUser: Boolean) {
+        viewAction = if (isVerifierUser)
+            ConfirmationViewAction.NavigationOnProfile
+        else ConfirmationViewAction.NavigationOnRegistration
+        viewState = ConfirmationViewState()
+    }
+
+    private fun notValidationError(message: String) {
+        viewState = viewState.copy(ErrorMessageField = message)
+    }
 
     private fun onError(exception: Exception) {
         Log.e("Kart", "Error = $exception}")

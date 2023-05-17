@@ -23,7 +23,7 @@ interface MangoApi {
 
     private companion object {
         const val USERS_REGISTRATION = "users/register/"
-        const val USERS_AUTHORIZATION= "users/send-auth-code/"
-        const val USERS_CHECK_CODE_AUTHORIZATION= "users/check-auth-code/"
+        const val USERS_AUTHORIZATION = "users/send-auth-code/"
+        const val USERS_CHECK_CODE_AUTHORIZATION = "users/check-auth-code/"
     }
 }

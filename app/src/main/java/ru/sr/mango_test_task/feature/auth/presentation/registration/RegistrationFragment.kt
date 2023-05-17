@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import ru.sr.mango_test_task.databinding.FragmentRegistrationBinding
 import ru.sr.mango_test_task.core.base.BaseFragment
+import ru.sr.mango_test_task.feature.auth.presentation.registration.model.RegistrationAction
+import ru.sr.mango_test_task.feature.auth.presentation.registration.model.RegistrationState
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
 
@@ -24,40 +26,41 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         flowObserver(viewModel.viewStates()) { state -> stateObserve(state) }
         flowObserver(viewModel.viewAction()) { action -> actionObserver(action) }
 
+        binding.registrationButton.setOnClickListener { onClickRegistration() }
+
         onClickRegistration()
 
     }
 
-    private fun actionObserver(action: RegistrationAction?) {
-        when (action) {
-            RegistrationAction.NavigateProfile -> navigation(RegistrationFragmentDirections.actionRegistrationFragmentToProfileFragment())
-            null -> {}
-        }
+    private fun actionObserver(action: RegistrationAction?) = when (action) {
+        RegistrationAction.NavigateProfile ->
+            navigation(RegistrationFragmentDirections.actionRegistrationFragmentToProfileFragment())
+
+        null -> {}
     }
 
-    private fun onClickRegistration() = binding.registrationButton.setOnClickListener {
-        viewModel.userRegistration(
-            args.phoneNumber,
-            binding.name.text.toString(),
-            binding.userName.text.toString()
-        )
-    }
+    private fun onClickRegistration() = viewModel.userRegistration(
+        args.phoneNumber,
+        binding.name.text.toString(),
+        binding.userName.text.toString()
+    )
+
 
     private fun stateObserve(state: RegistrationState) {
         errorState(state)
         loadingState(state.isLoading)
     }
 
-    private fun errorState(state: RegistrationState) {
-        binding.userNameLayout.error = state.errorFieldUserName
-        binding.nameLayout.error = state.errorFieldName
-        binding.errorNetwork.error.isVisible = state.isNetworkError
+    private fun errorState(state: RegistrationState) = binding.apply {
+        userNameLayout.error = state.errorFieldUserName
+        nameLayout.error = state.errorFieldName
+        errorNetwork.error.isVisible = state.isNetworkError
     }
 
-    private fun loadingState(isLoading: Boolean) {
-        binding.userNameLayout.isEnabled = !isLoading
-        binding.nameLayout.isEnabled = !isLoading
-        binding.registrationButton.isEnabled = !isLoading
-        binding.progressBar.isVisible = isLoading
+    private fun loadingState(isLoading: Boolean) = binding.apply {
+        userNameLayout.isEnabled = !isLoading
+        nameLayout.isEnabled = !isLoading
+        registrationButton.isEnabled = !isLoading
+        progressBar.isVisible = isLoading
     }
 }
