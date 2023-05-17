@@ -39,7 +39,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_code_layout"
-            android:layout_width="120dp"
+            android:layout_width="160dp"
             android:layout_gravity="center"
             app:hintTextColor="@color/green_200"
             android:layout_height="wrap_content"
