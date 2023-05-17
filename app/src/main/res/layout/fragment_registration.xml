@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.auth.presentation.registration.RegistrationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registration_title"
+            android:textColor="@color/green_200"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registration_message"
+            android:textColor="@color/grey_200"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/root_phone"
+            app:boxStrokeColor="@color/green_200"
+            app:hintTextColor="@color/green_200">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/root_name"
+            android:textColorHint="@color/grey_200"
+            app:boxStrokeColor="@color/green_200"
+            app:endIconMode="clear_text"
+            app:errorTextColor="@color/error"
+            app:hintTextColor="@color/green_200">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            android:text="@string/registration_help_name"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/root_userName"
+            android:textColorHint="@color/grey_200"
+            app:boxStrokeColor="@color/green_200"
+            app:endIconMode="clear_text"
+            app:errorTextColor="@color/error">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/registration_help_user_name"
+            android:textSize="13sp" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:indeterminateTint="@color/green_200"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/registration_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green_200"
+            android:text="@string/registration_button" />
+
+    </LinearLayout>
+
+    <include layout="@layout/error_internet_tem"
+        android:id="@+id/error_network"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>
