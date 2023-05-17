@@ -69,6 +69,4 @@ class ProfileViewModel(
             isError = true
         )
     }
-
-    //HTTP 401 Unauthorized
 }

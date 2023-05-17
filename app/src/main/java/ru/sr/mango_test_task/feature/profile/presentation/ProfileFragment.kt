@@ -55,12 +55,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         phoneNumber.setText(state.user?.phone)
         userName.setText(state.user?.username)
         city.setText(state.user?.city)
-        userAvatar.loadImage(state.user?.avatar)
+        userAvatar.loadImage( state.avatarUriUpdate?: state.user?.avatar)
     }
 
     private fun actionObserver(action: ProfileAction?) = when (action) {
-        ProfileAction.ShowSuccessToast ->
+        ProfileAction.ShowSuccessToast -> {
             showToast(getString(R.string.profile_update_success_message))
+            viewModel.onResetAction()
+        }
 
         null -> {}
     }
