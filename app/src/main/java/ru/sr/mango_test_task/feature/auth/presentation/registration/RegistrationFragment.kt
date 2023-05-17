@@ -1,6 +1,7 @@
 package ru.sr.mango_test_task.feature.auth.presentation.registration
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
@@ -28,7 +29,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
 
         binding.registrationButton.setOnClickListener { onClickRegistration() }
 
-        onClickRegistration()
 
     }
 
@@ -52,6 +52,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
     }
 
     private fun errorState(state: RegistrationState) = binding.apply {
+        Log.e("Kart","${state.errorFieldUserName}")
         userNameLayout.error = state.errorFieldUserName
         nameLayout.error = state.errorFieldName
         errorNetwork.error.isVisible = state.isNetworkError

@@ -28,6 +28,14 @@ class RegistrationViewModel(
             } else notValidationError(isValidationUserName, isValidationName)
         }
 
+
+    private fun notValidationError(isValidationUserName: Boolean, isValidationName: Boolean) {
+        viewState = viewState.copy(
+            errorFieldUserName = setErrorMessage(isValidationUserName),
+            errorFieldName = setErrorMessage(isValidationName)
+        )
+    }
+
     private fun setErrorMessage(isValidation: Boolean) =
         if (!isValidation) resource.getString(R.string.registration_error_message) else null
 
@@ -46,12 +54,7 @@ class RegistrationViewModel(
         viewAction = RegistrationAction.NavigateProfile
     }
 
-    private fun notValidationError(isValidationUserName: Boolean, isValidationName: Boolean) {
-        viewState = viewState.copy(
-            errorFieldUserName = setErrorMessage(isValidationUserName),
-            errorFieldName = setErrorMessage(isValidationName)
-        )
-    }
+
 
     private fun onError(exception: Exception) {
         Log.e("Kart", exception.toString())
