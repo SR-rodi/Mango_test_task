@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chatFragment">
+    app:startDestination="@id/ticketsRoomFragment">
 
     <fragment
         android:id="@+id/authorizationFragment"
@@ -58,12 +58,21 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            android:id="@+id/action_profileFragment_to_ticketsRoomFragment"
+            app:destination="@id/ticketsRoomFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="ru.sr.mango_test_task.feature.chat.presentation.ChatFragment"
+        android:name="ru.sr.mango_test_task.feature.chat.presentation.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/ticketsRoomFragment"
+        android:name="ru.sr.mango_test_task.feature.chat.presentation.tiket.TicketsRoomFragment"
+        android:label="fragment_tickets_room"
+        tools:layout="@layout/fragment_tickets_room" >
+        <action
+            android:id="@+id/action_ticketsRoomFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

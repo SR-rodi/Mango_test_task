@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.chat.presentation.model
+package ru.sr.mango_test_task.feature.chat.presentation.chat.model
 
 data class Sender(
     val avatar: Int,

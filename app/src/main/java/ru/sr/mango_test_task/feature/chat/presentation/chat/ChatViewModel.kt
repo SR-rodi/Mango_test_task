@@ -1,9 +1,9 @@
-package ru.sr.mango_test_task.feature.chat.presentation
+package ru.sr.mango_test_task.feature.chat.presentation.chat
 
 import androidx.lifecycle.ViewModel
 import ru.sr.mango_test_task.R
-import ru.sr.mango_test_task.feature.chat.presentation.model.MessageItem
-import ru.sr.mango_test_task.feature.chat.presentation.model.Sender
+import ru.sr.mango_test_task.feature.chat.presentation.chat.model.MessageItem
+import ru.sr.mango_test_task.feature.chat.presentation.chat.model.Sender
 
 class ChatViewModel : ViewModel() {
      val currentId = "325"

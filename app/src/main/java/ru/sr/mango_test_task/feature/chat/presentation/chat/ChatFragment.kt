@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.chat.presentation
+package ru.sr.mango_test_task.feature.chat.presentation.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import ru.sr.mango_test_task.core.base.BaseFragment
 import ru.sr.mango_test_task.databinding.FragmentChatBinding
-import ru.sr.mango_test_task.feature.chat.presentation.adapter.ChatAdapter
+
+import ru.sr.mango_test_task.feature.chat.presentation.chat.adapter.ChatAdapter
 
 class ChatFragment : BaseFragment<FragmentChatBinding>() {
 

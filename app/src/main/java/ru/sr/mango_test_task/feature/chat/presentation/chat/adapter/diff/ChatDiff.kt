@@ -1,8 +1,8 @@
-package ru.sr.mango_test_task.feature.chat.presentation.adapter.diff
+package ru.sr.mango_test_task.feature.chat.presentation.chat.adapter.diff
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
-import ru.sr.mango_test_task.feature.chat.presentation.model.DisplayChatItem
+import ru.sr.mango_test_task.feature.chat.presentation.chat.model.DisplayChatItem
 
 class ChatDiff : DiffUtil.ItemCallback<DisplayChatItem>() {
     override fun areItemsTheSame(oldItem: DisplayChatItem, newItem: DisplayChatItem) =
