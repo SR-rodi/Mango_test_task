@@ -1,6 +1,5 @@
 package ru.sr.mango_test_task.feature.root.domain.validation.impl
 
-import android.util.Log
 import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
 
 class UserNameValidationImpl : UserNameValidation {

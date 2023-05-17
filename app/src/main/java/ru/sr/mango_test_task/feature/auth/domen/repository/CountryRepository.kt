@@ -1,6 +1,6 @@
 package ru.sr.mango_test_task.feature.auth.domen.repository
 
-import ru.sr.mango_test_task.feature.auth.data.repository.PhoneFormat
+import ru.sr.mango_test_task.feature.auth.data.PhoneFormat
 
 interface CountryRepository {
 

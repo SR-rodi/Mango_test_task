@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 class ResponseAuthorizationDto(
     @SerializedName("is_success")
-    val isSuccess: Boolean
+    val isSuccess: Boolean,
 )

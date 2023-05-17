@@ -9,10 +9,11 @@ import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.RefreshTokenProvider
 import ru.sr.mango_test_task.feature.auth.data.repository.CountryRepositoryImpl
 import ru.sr.mango_test_task.feature.auth.domen.repository.CountryRepository
+import ru.sr.mango_test_task.feature.root.domain.provider.UserIdProvider
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+class AuthRepositoryModule {
 
     @Provides
     @Singleton
@@ -20,8 +21,10 @@ class RepositoryModule {
         api: MangoApi,
         refreshTokenProvider: RefreshTokenProvider,
         accessTokenProvider: AccessTokenProvider,
-    ): AuthRepository = AuthRepositoryImpl(api, refreshTokenProvider, accessTokenProvider)
+        userIdProvider: UserIdProvider,
+    ): AuthRepository =
+        AuthRepositoryImpl(api, refreshTokenProvider, accessTokenProvider, userIdProvider)
 
     @Provides
-    fun providerCountryRepository():CountryRepository = CountryRepositoryImpl()
+    fun providerCountryRepository(): CountryRepository = CountryRepositoryImpl()
 }

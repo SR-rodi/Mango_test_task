@@ -15,7 +15,7 @@ import ru.sr.mango_test_task.feature.auth.domen.usecase.impl.SendPhoneUseCaseImp
 import javax.inject.Singleton
 
 @Module
-class UseCaseModule {
+class AuthUseCaseModule {
 
     @Provides
     @Singleton

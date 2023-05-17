@@ -7,11 +7,13 @@ import ru.sr.mango_test_task.feature.auth.data.body.AuthorizationBody
 import ru.sr.mango_test_task.feature.auth.data.body.CheckCodeBody
 import ru.sr.mango_test_task.feature.auth.data.body.RegistrationBody
 import ru.sr.mango_test_task.feature.auth.domen.repository.AuthRepository
+import ru.sr.mango_test_task.feature.root.domain.provider.UserIdProvider
 
 class AuthRepositoryImpl(
     private val api: MangoApi,
     private val refreshTokenProvider: RefreshTokenProvider,
     private val accessTokenProvider: AccessTokenProvider,
+    private val userIdProvider: UserIdProvider,
 ) :
     AuthRepository {
     override suspend fun sendPhone(phone: String): Boolean {
@@ -21,6 +23,7 @@ class AuthRepositoryImpl(
     override suspend fun checkCode(phone: String, code: String): Boolean {
         val user = api.userCheckAuthorizationCode(CheckCodeBody(phone, code))
         saveTokens(user.refreshToken, user.accessToken)
+        if (user.userId != null) userIdProvider.putUserId(user.userId.toString())
         return user.isUserExists
     }
 

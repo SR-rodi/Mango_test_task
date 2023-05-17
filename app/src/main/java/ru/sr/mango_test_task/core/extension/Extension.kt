@@ -1,11 +1,24 @@
 package ru.sr.mango_test_task.core.extension
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.icu.text.SimpleDateFormat
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import ru.sr.mango_test_task.app.MangoApp
+import ru.sr.mango_test_task.databinding.FragmentProfileBinding
 import ru.sr.mango_test_task.di.AppComponent
+import ru.sr.mango_test_task.feature.profile.data.database.UserEntity
+import ru.sr.mango_test_task.feature.profile.domain.model.UserProfileDomainModel
+import ru.sr.mango_test_task.feature.profile.presentation.model.UserProfileUIModel
+import java.util.Date
 
 fun Context.appComponent(): AppComponent =
     when (this) {
@@ -24,9 +37,34 @@ fun Spinner.setOnSelectedItem(onSelect: (position: Int) -> Unit) {
             onSelect(position)
         }
 
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-
-        }
-
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 }
+
+fun UserProfileDomainModel.toUi() =
+    UserProfileUIModel(id, avatar, birthday, city, username, name, phone)
+
+fun ImageView.loadImage(uri: Any?) {
+    Glide.with(this)
+        .load(uri)
+        .into(this)
+}
+
+
+@SuppressLint("SimpleDateFormat")
+fun String.simpleDateFormat(from: String, to: String): String {
+
+    val formatter = SimpleDateFormat(from)
+    val mDate = formatter.parse(this) as Date// this never ends while debugging
+    Log.e("mDate", mDate.toString())
+    val newFormat = SimpleDateFormat(to)
+    return newFormat.format(mDate)
+}
+
+fun Fragment.showToast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun UserProfileDomainModel.toEntity() = UserEntity(
+    id, avatar, birthday, city, username, name, phone
+)
