@@ -1,7 +1,6 @@
 package ru.sr.mango_test_task.feature.profile.data.repository
 
 import android.net.Uri
-import android.util.Log
 import ru.sr.mango_test_task.core.extension.simpleDateFormat
 import ru.sr.mango_test_task.feature.profile.data.api.ProfileApi
 import ru.sr.mango_test_task.feature.profile.data.body.Avatar
@@ -28,7 +27,7 @@ class ProfileRemoteRepositoryImpl(
         city: String?,
     ):String? {
         val newAvatar = if (avatar != null)
-            Avatar(encoder.encodeUriToString(avatar), "avatra_$userName")
+            Avatar(encoder.encodeUriToString(avatar), "$PREFIX_NAME$userName")
         else null
 
        return api.updateUser(
@@ -40,6 +39,9 @@ class ProfileRemoteRepositoryImpl(
                 city = city
             )
         ).avatars?.avatar
-
     }
+
+   private companion object{
+       const val PREFIX_NAME = "avatra_"
+   }
 }

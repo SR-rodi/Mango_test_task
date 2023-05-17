@@ -9,6 +9,7 @@ class GetUserUseCaseImpl(
     private val locationRepository: ProfileLocationRepository,
     private val remoteRepository: ProfileRemoteRepository,
 ) : GetUserUseCase {
+
     override suspend fun get(): UserProfileDomainModel {
         val locationUser = locationRepository.getCurrentUser()
         return if (locationUser != null) locationUser

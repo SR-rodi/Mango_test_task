@@ -1,6 +1,5 @@
 package ru.sr.mango_test_task.feature.profile.domain.repository
 
-import android.net.Uri
 import ru.sr.mango_test_task.feature.profile.domain.model.UserProfileDomainModel
 
 interface ProfileLocationRepository {

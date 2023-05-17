@@ -17,14 +17,12 @@
     <string name="registration_message">Заполните все поля</string>
     <string name="registration_button">Зарегестрировать</string>
     <string name="registration_error_message">не потдерживаемый символ или строка осталось пустой</string>
-
     <string name="registration_help_name">*Имя может:\n
          -состоять только из латинских букв;\n
         -содержать заглавные буквы;\n
         -содержать строчные буквы;\n
         -потдерживает дифис;\n
         -должно быть длинее 3x символов</string>
-
     <string name="registration_help_user_name">*UserName может:\n
          -состоять из латинских букв;\n
         -содержать заглавные буквы;\n
@@ -33,6 +31,8 @@
         -должно быть длинее 5ти символов</string>
 
     <string name="profile_update_button">Сохранить</string>
+    <string name="profile_update_success_message">Сохранить</string>
+
 
     <string name="root_name">Имя</string>
     <string name="root_userName">UserName</string>

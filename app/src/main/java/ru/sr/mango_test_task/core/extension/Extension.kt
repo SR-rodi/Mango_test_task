@@ -6,13 +6,18 @@ import android.icu.text.SimpleDateFormat
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.sr.mango_test_task.app.MangoApp
+import ru.sr.mango_test_task.databinding.FragmentProfileBinding
 import ru.sr.mango_test_task.di.AppComponent
+import ru.sr.mango_test_task.feature.profile.data.database.UserEntity
 import ru.sr.mango_test_task.feature.profile.domain.model.UserProfileDomainModel
-import ru.sr.mango_test_task.feature.profile.presentation.UserProfileUIModel
+import ru.sr.mango_test_task.feature.profile.presentation.model.UserProfileUIModel
 import java.util.Date
 
 fun Context.appComponent(): AppComponent =
@@ -58,3 +63,11 @@ fun String.simpleDateFormat(from: String, to: String): String {
     val newFormat = SimpleDateFormat(to)
     return newFormat.format(mDate)
 }
+
+fun Fragment.showToast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun UserProfileDomainModel.toEntity() = UserEntity(
+    id, avatar, birthday, city, username, name, phone
+)

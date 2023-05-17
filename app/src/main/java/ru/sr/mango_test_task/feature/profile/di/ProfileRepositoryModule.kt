@@ -1,6 +1,5 @@
 package ru.sr.mango_test_task.feature.profile.di
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.sr.mango_test_task.feature.profile.data.api.ProfileApi

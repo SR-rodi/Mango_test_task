@@ -9,9 +9,9 @@ import ru.sr.mango_test_task.feature.auth.domen.usecase.SendPhoneUseCase
 import ru.sr.mango_test_task.feature.auth.presentation.authorization.AuthorizationViewModel
 import ru.sr.mango_test_task.feature.auth.presentation.confirmation.ConfirmationCodeViewModel
 import ru.sr.mango_test_task.feature.auth.presentation.registration.RegistrationViewModel
-import ru.sr.mango_test_task.feature.profile.ProfileViewModel
+import ru.sr.mango_test_task.feature.profile.presentation.ProfileViewModel
 import ru.sr.mango_test_task.feature.profile.domain.usecase.GetUserUseCase
-import ru.sr.mango_test_task.feature.profile.domain.usecase.impl.UpdateUserUseCase
+import ru.sr.mango_test_task.feature.profile.domain.usecase.UpdateUserUseCase
 import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
 import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
 import javax.inject.Inject

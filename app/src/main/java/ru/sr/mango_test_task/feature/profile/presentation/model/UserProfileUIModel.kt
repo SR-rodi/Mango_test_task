@@ -1,4 +1,4 @@
-package ru.sr.mango_test_task.feature.profile.presentation
+package ru.sr.mango_test_task.feature.profile.presentation.model
 
 data class UserProfileUIModel(
     val id: String,

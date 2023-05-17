@@ -1,6 +1,6 @@
 package ru.sr.mango_test_task.feature.profile.data.repository
 
-import android.net.Uri
+import ru.sr.mango_test_task.core.extension.toEntity
 import ru.sr.mango_test_task.feature.profile.data.database.UserDao
 import ru.sr.mango_test_task.feature.profile.data.database.UserEntity
 import ru.sr.mango_test_task.feature.profile.domain.model.UserProfileDomainModel
@@ -15,7 +15,6 @@ class ProfileLocationRepositoryImpl(
         val userId = userIdProvider.getUserId()
         return if (userId != null) dao.getUserById(userId)?.toDomain()
         else null
-
     }
 
     override suspend fun insertUser(user: UserProfileDomainModel) {
@@ -41,6 +40,4 @@ class ProfileLocationRepositoryImpl(
     }
 }
 
-fun UserProfileDomainModel.toEntity() = UserEntity(
-    id, avatar, birthday, city, username, name, phone
-)
+
