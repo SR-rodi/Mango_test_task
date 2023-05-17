@@ -32,8 +32,12 @@
         -потдерживает - и _;\n
         -должно быть длинее 5ти символов</string>
 
+    <string name="profile_update_button">Сохранить</string>
+
     <string name="root_name">Имя</string>
     <string name="root_userName">UserName</string>
+    <string name="root_birth_day">Дата рождения</string>
+    <string name="root_city">Город</string>
     <string name="error_network_message">Обнаружены проблкмы с интернетом. Проосьба проверить состояние сети и повторить попытку</string>
     <string name="root_phone">Телефон</string>
 

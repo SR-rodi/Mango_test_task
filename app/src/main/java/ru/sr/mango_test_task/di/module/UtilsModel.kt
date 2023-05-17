@@ -2,8 +2,10 @@ package ru.sr.mango_test_task.di.module
 
 import android.content.Context
 import dagger.Provides
+import ru.sr.mango_test_task.feature.root.data.encoder.Base64EncoderImpl
 import ru.sr.mango_test_task.feature.root.data.provider.ResourceProviderImpl
 import ru.sr.mango_test_task.feature.root.data.provider.TokenProviderImpl
+import ru.sr.mango_test_task.feature.root.domain.encoder.Base64Encoder
 import ru.sr.mango_test_task.feature.root.domain.provider.AccessTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.RefreshTokenProvider
 import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
@@ -11,7 +13,7 @@ import ru.sr.mango_test_task.feature.root.domain.validation.UserNameValidation
 import ru.sr.mango_test_task.feature.root.domain.validation.impl.UserNameValidationImpl
 
 @dagger.Module
-class ProviderModel {
+class UtilsModel {
 
     @Provides
     fun providerRefreshTokenProvider(context: Context): RefreshTokenProvider =
@@ -28,6 +30,11 @@ class ProviderModel {
     @Provides
     fun providerValidation(): UserNameValidation =
         UserNameValidationImpl()
+
+    @Provides
+    fun providerBase64Encoder(context: Context): Base64Encoder =
+        Base64EncoderImpl(context)
+
 
     private companion object {
         const val SHARED_REFRESH_TOKEN_NAME = "refresh_shared"

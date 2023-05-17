@@ -3,7 +3,7 @@ package ru.sr.mango_test_task.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.sr.mango_test_task.di.module.ProviderModel
+import ru.sr.mango_test_task.di.module.UtilsModel
 import ru.sr.mango_test_task.feature.auth.di.AuthRepositoryModule
 import ru.sr.mango_test_task.di.module.RetrofitModule
 import ru.sr.mango_test_task.feature.auth.di.AuthUseCaseModule
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         RetrofitModule::class,
-        ProviderModel::class,
+        UtilsModel::class,
         AuthRepositoryModule::class,
         AuthUseCaseModule::class,
         DatabaseModule::class,
