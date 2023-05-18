@@ -35,7 +35,7 @@ class ProfileRemoteRepositoryImpl(
                 name = name,
                 username = userName,
                 avatar = newAvatar,
-                birthday = birthday?.simpleDateFormat("dd.MM.yyyy","yyyy-MM-dd"),
+                birthday = if (birthday!=null && birthday.length == 10) birthday.simpleDateFormat("dd.MM.yyyy","yyyy-MM-dd") else null,
                 city = city
             )
         ).avatars?.avatar

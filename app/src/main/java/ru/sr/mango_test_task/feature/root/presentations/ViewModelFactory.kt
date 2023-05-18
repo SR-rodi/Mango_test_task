@@ -39,7 +39,7 @@ class ViewModelFactory @Inject constructor(
             RegistrationViewModel(registrationUseCase, userNameValidation, resourceProvider) as T
 
         ProfileViewModel::class.java ->
-            ProfileViewModel(getUserUseCase, updateUserUseCase) as T
+            ProfileViewModel(getUserUseCase, updateUserUseCase,resourceProvider) as T
 
         else -> throw IllegalAccessError("error create viewModel")
     }

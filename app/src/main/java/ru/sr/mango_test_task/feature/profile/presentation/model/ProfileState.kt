@@ -7,4 +7,5 @@ data class ProfileState(
     val isError: Boolean = false,
     val user: UserProfileUIModel? = null,
     val avatarUriUpdate: Uri? = null,
+    val errorBirthday: String? = null,
 )

@@ -3,16 +3,19 @@ package ru.sr.mango_test_task.feature.profile.presentation
 import android.net.Uri
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import ru.sr.mango_test_task.R
 import ru.sr.mango_test_task.core.base.BaseViewModel
 import ru.sr.mango_test_task.core.extension.toUi
 import ru.sr.mango_test_task.feature.profile.domain.usecase.GetUserUseCase
 import ru.sr.mango_test_task.feature.profile.domain.usecase.UpdateUserUseCase
 import ru.sr.mango_test_task.feature.profile.presentation.model.ProfileAction
 import ru.sr.mango_test_task.feature.profile.presentation.model.ProfileState
+import ru.sr.mango_test_task.feature.root.domain.provider.ResourceProvider
 
 class ProfileViewModel(
     private val getUserUseCase: GetUserUseCase,
     private val userUseCase: UpdateUserUseCase,
+    private val resource: ResourceProvider,
 ) : BaseViewModel<ProfileState, ProfileAction>(ProfileState()) {
 
     init {
@@ -29,10 +32,15 @@ class ProfileViewModel(
 
     fun userUpdate(birthday: String, city: String) {
         scopeLaunch(context = Dispatchers.IO, onError = ::onError) {
-            updateLoading(birthday, city)
-            val newAvatar = startUpdate(birthday, city)
-            viewAction = ProfileAction.ShowSuccessToast
-            successUpdate(newAvatar)
+            if (birthday!="" && birthday.length < 10) {
+                viewState =
+                    viewState.copy(errorBirthday = resource.getString(R.string.profile_field_message))
+            } else {
+                updateLoading(birthday, city)
+                val newAvatar = startUpdate(birthday, city)
+                viewAction = ProfileAction.ShowSuccessToast
+                successUpdate(newAvatar)
+            }
         }
     }
 
@@ -58,7 +66,8 @@ class ProfileViewModel(
         viewState = viewState.copy(
             user = viewState.user?.copy(avatar = newAvatar),
             isLoading = false,
-            isError = false
+            isError = false,
+            errorBirthday = null
         )
     }
 

@@ -52,6 +52,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         progressBar.isVisible = state.isLoading
         errorNetwork.error.isVisible = state.isError
         birthDay.setText(state.user?.birthday)
+        birthDayLayout.error = state.errorBirthday
         phoneNumber.setText(state.user?.phone)
         userName.setText(state.user?.username)
         city.setText(state.user?.city)
